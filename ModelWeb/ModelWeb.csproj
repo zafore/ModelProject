@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="jQuery" Version="3.7.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Services.Data\Services.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\bootstrap-4.0.0\" />
+    <Folder Include="wwwroot\NewFolder\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\plugins\datatables.net\dataTables.responsive.min.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\buttons.bootstrap4.min.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\buttons.colVis.min.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\buttons.html5.min.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\buttons.print.min.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\dataTables.bootstrap.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\dataTables.bootstrap.min.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\dataTables.bootstrap4.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\dataTables.bootstrap4.min.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\dataTables.buttons.min.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\dataTables.foundation.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\dataTables.foundation.min.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\dataTables.jqueryui.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\dataTables.jqueryui.min.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\dataTables.semanticui.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\dataTables.semanticui.min.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\jquery.dataTables.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\jquery.dataTables.min.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\jszip.min.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\pdfmake.min.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\js\vfs_fonts.js" />
+    <None Include="wwwroot\assets\plugins\datatables.net\responsive.bootstrap4.min.js" />
+  </ItemGroup>
+
+</Project>

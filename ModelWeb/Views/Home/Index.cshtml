@@ -1,0 +1,219 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+  
+}
+
+<div class="mainbox flexbox">
+	<div class="container flexbox">
+		<div class="box b1 flexbox">
+			<div class="shadow"></div>
+		</div>
+		<div class="box b2 flexbox">
+			<div class="mrow"> <div class="shadow"></div></div>
+			<div class="mrow"> <div class="shadow"></div></div>
+			<div class="mrow"> <div class="shadow"></div></div>
+		</div>
+		<div class="box b3 flexbox">
+			<div class="bcol"> <div class="shadow"></div></div>
+			<div class="bcol"> <div class="shadow"></div></div>
+		</div>
+	</div>
+</div>
+
+<div class="DivMain" >
+	<h2>اضافة جدول</h2>
+<div class="row row-sm">
+<div class="col-md-12">
+	<div class="card mg-b-20">
+		<div class="card-body" >
+			<form class="DivMain" id="FormTable">
+				<div class="form-wrap">
+				<div class="row row-sm mg-b-20">
+
+					<div class="col-lg-6">
+						<p class="mg-b-10">اسم الجدول</p>
+								<div class="relative">
+
+										<input type="text" class="form-control2" name="tableName" placeholder="اضافة اسم الجدول" autofocus required />
+									<i class="fa fa-table"></i>
+								
+								</div>
+						
+
+					</div>
+					<div class="col-lg-6">
+								
+						<p class="mg-b-10"> عدد الاعمدة</p>
+								<div class="relative">
+										<input type="number" min="1" class="form-control" name="coulmCount" id="coulmCount" placeholder="عدد الاعمدة" required />
+									<i class="fa fa-columns-3"></i>
+								
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row row-sm mg-b-20">
+					<div class="col-lg-12">
+					
+						<label class="mg-b-10">المواد</label>
+								<div class="relative">
+										<select multiple="multiple" name="Items" id="Items" asp-items="@ViewBag.ItemList" class="multiselect ">
+					
+					</select>
+									<i class="fa fa-object-ungroup"></i>
+								
+					</div>
+					</div>
+				</div>
+
+							<div class="tright">
+							
+								<button class="movebtn movebtnsu btn-primary" type="button" onclick="PostData()">انشاء <i class="fa fa-fw fa-paper-plane"></i></button>
+								<button class="movebtn movebtnre btn-info" type="Reset"><i class="fa fa-fw fa-refresh"></i> إعادة </button>
+							</div>
+		
+
+</div>
+</form>
+
+<div id="DivDetails" style="margin-top:10px"></div>
+
+
+
+			</div>
+			</div>
+	</div>
+</div>
+	              	
+
+	</div>
+
+
+
+<script>
+
+
+	
+	$(document).ready(function () {
+		// $('#Items').multiselect({
+		// 	includeSelectAllOption: true,
+		// 	selectAllText: 'اختيار الكل', // 👈 Change this text
+		// 	allSelectedText: 'اختيار الكل',
+		// 	nonSelectedText: 'Nothing Selected'
+		// });
+
+	});
+	function LoadItem() {
+		try {
+			var url = "@Url.Action("ItemList")";
+			$.getJSON(url, function (data) {
+			
+				$.each(data, function (index, item) {
+					console.log(item);
+					$('#Items').append(
+						$('<option>', {
+							value: item.itemId,
+							text: item.itemName
+						})
+					);
+				});
+			});
+
+		}
+		catch (e) {
+			console.log(e);
+		}
+	}
+	function PostData()
+	{
+		try {
+			StartLoader();
+			var IsValid = $("#FormTable").valid();
+			if (IsValid) {
+				var count = parseInt($('#Items option:selected').length);
+				var coulmCount = parseInt($("#coulmCount").val());
+				console.log(count);
+				console.log(coulmCount);
+				var result = Math.floor(count / coulmCount);
+				console.log(result);
+				if (result % 2 !== 0) {
+					EndLoader();
+					alert('حاصل القسمة فردي!');
+
+					return;
+				}
+				var formData = $("#FormTable").serialize(); // Serialize the form
+				var url ="@Url.Action("AddTable")";
+				$.post(url, formData, function (data) {
+					// Handle success
+					console.log('Server response:', data);
+					LoadTable(data);
+				}).fail(function (xhr) {
+					// Handle error
+					console.error('Error:', xhr.responseText);
+				});
+				EndLoader();
+			}
+			else
+			{
+				EndLoader();
+				alert('Not Valid');
+			}
+		}
+		catch (e) {
+			EndLoader();
+		}
+	}
+	function LoadTable(data) {
+		try
+		{
+			var html = "<table id='TbData' class='table table-bordered'  >";
+			html += "<thead class='mdb-color darken-3' ><tr class='text-center text-white'>";
+			html += `<th>#</th>`;
+			$.each(data.colList, function (x, v) {
+				console.log(v);
+				html += `<th>${v}</th>`;
+			
+			})
+		
+			html += "</thead></tr>	<tbody>";
+
+		
+			$.each(data.details, function (x, v) {
+				html += "<tr class='text-center'>";
+				html += `<td>${v.rowNo}</td>`;
+				$.each(v.rowData, function (r, item) {
+				 
+						html += `<td>${item.itemName}</td>`;
+					
+				})
+				html += "</tr>";
+			})
+
+		
+
+			html += "</tbody></table>";
+
+			$("#DivDetails").empty();
+			$("#DivDetails").append(html);
+	
+			$('#TbData').DataTable({
+				paging: false,
+				dom: 'Bfrtip', // موقع الأزرار
+				layout: {
+					topStart: {
+						buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+					}
+				}
+			});
+
+		
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+</script>

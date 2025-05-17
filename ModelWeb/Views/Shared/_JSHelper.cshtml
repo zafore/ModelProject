@@ -1,0 +1,74 @@
+﻿<script>
+    function cleanMoney(value1) {
+        try {
+            const cleaned = parseFloat(value1.replace(/[,٫]/g, ''));
+            return cleaned;
+        }
+        catch (e) {
+            console.log(e);
+        }
+
+    }
+
+
+    function ToMoney(value1) {
+        try {
+            return new Intl.NumberFormat().format(value1);
+
+        }
+        catch (e) {
+            console.log(e);
+        }
+
+    }
+
+
+
+		function StartLoader() {
+
+
+			$('#Loader').fadeIn('slow').show();
+
+
+		}
+	function EndLoader() {
+		$('#Loader').fadeOut("slow").hide();
+
+
+
+	}
+	function AlertMsg(message, title, time) {
+
+		swal({
+			title: title,
+			text: message,
+			timer: time,
+			showConfirmButton: false,
+			icon: "error"
+		});
+	}
+	function success(message, title, time) {
+
+		swal({
+			title: title,
+			text: message,
+			timer: time,
+			showConfirmButton: false,
+			icon: "success"
+		});
+	}
+
+	function ShowHideDiv(Show, Hide) {
+		try {
+			$(`#${Show}`).show();
+			$(`#${Hide}`).hide();
+			// // $(`#${Show}`).show().fadeOut("slow");
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+</script>
+
